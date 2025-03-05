@@ -5,8 +5,8 @@
             "name": "Déboguer check_program",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/check_program",
-            "args": [],
+            "program": "${workspaceFolder}/so_long",
+            "args": ["map1.ber"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -19,7 +19,6 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "build",
             "miDebuggerPath": "/usr/bin/gdb",
             "setupCommands": [
                 {
@@ -31,34 +30,6 @@
             "logging": {
                 "engineLogging": true
             }
-        }
-    ]
-}
-{
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build",
-            "type": "shell",
-            "command": "gcc",
-            "args": [
-                "-g",
-                "-o",
-                "check_program",
-                "verif/check1.c",
-                "verif/check2.c",
-                "utils/utils.c",
-                "-I",
-                "bibi",
-                "-I",
-                "utils"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": ["$gcc"],
-            "detail": "Tâche générée par l'utilisateur."
         }
     ]
 }

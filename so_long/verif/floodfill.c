@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 22:35:32 by jrighi            #+#    #+#             */
-/*   Updated: 2025/02/14 18:23:15 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/04 20:40:14 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,67 +14,67 @@
 
 int flooderrorchek(t_game *game, int x, int y)
 {
-    if (x < 0 || y < 0 || x >= slong_mapheight(game->map.clonemap)
-        || y >= slong_strlen(game->map.clonemap[0])
-        || game->map.clonemap[y][x] == '1')
+    if (x < 0 || y < 0 || x >= game->checks->mapwidth
+        || y >= game->checks->mapheight
+        || y >= slong_strlen(game->map->clonemap[0]))
         return (0);
     return (1);
 }
 
 void floodcount(t_game *game, int x, int y)
 {
-    if (game->map.clonemap[y][x] == 'C')
+    if (game->map->clonemap[y][x] == 'C')
     {
-        game->checks.koclone--;
-        game->map.clonemap[y][x] = 'X';
+        game->checks->koclone--;
     }
-    else if (game->map.clonemap[y][x] == 'E')
+    else if (game->map->clonemap[y][x] == 'E')
     {
-        game->checks.exitclone--;
-        game->map.clonemap[y][x] = 'X';
+        game->checks->exitclone--;
     }
 }
 
-void flood_fill(t_game *game, int x, int y)
+int flood_fill(t_game *game, int x, int y)
 {
+    static int i = 0;
+    static int j = 0;
+
     if (!flooderrorchek(game, x, y))
-        return;
-
-    if (((game->map.clonemap[y + 1][x] == 'E')
-        || (game->map.clonemap[y - 1][x] == 'E'))
-        && ((game->map.clonemap[y][x + 1] == '1')
-        || (game->map.clonemap[y][x - 1] == '1')))
-        return;
-
-    if (((game->map.clonemap[y][x + 1] == 'E')
-        || (game->map.clonemap[y][x - 1] == 'E'))
-        && ((game->map.clonemap[y + 1][x] == '1')
-        || (game->map.clonemap[y - 1][x] == '1')))
-        return;
-
-    if (game->map.clonemap[y][x] == 'E' || game->map.clonemap[y][x] == 'C')
-        floodcount(game, x, y);
-
-    game->map.clonemap[y][x] = 'X';
-
-    flood_fill(game, x - 1, y);
-    flood_fill(game, x + 1, y);
-    flood_fill(game, x, y - 1);
-    flood_fill(game, x, y + 1);
+        return(0);
+    if (game->map->clonemap[y][x] == '1')
+        return(0);
+    if (game->map->clonemap[y][x] == 'C')
+        i++;
+    if (game->map->clonemap[y][x] == 'E')
+        j++;
+    game->map->clonemap[y][x] = '1';
+    if (j == 1)
+        game->map->clonemap[game->checks->exy][game->checks->exx] = '0';
+    if (flood_fill(game, x - 1, y))
+    return (1);
+    if (flood_fill(game, x + 1, y))
+    return (1);
+    if (flood_fill(game, x, y - 1))
+        return (1);    
+    if (flood_fill(game, x, y + 1))
+        return (1);
+    if (game->checks->kolektibl == i && game->checks->exitexist == j)
+        return (1);
+    return (0);
 }
 
 
 int	validpath(t_game *game)
 {
-    int result;
-
-	game->map.clonemap = mapcopy(game->map.map);
-	if (game->map.clonemap == NULL)
+	game->map->clonemap = mapcopy(game->map->map);
+	if (game->map->clonemap == NULL)
 		return (0);
-	flood_fill(game, game->map.xspawn, game->map.yspawn);
-	result = (game->checks.koclone == 0 && game->checks.exitclone == 0);
-    free(game->map.clonemap);
-	return (result);
+	if (flood_fill(game, game->map->xspawn, game->map->yspawn))
+    {
+        free(game->map->clonemap);
+        return (1);
+    }
+    free(game->map->clonemap);
+	return (0);
 }
 
 /*int	main(void)

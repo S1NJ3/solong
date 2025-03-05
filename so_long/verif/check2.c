@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:50:46 by jrighi            #+#    #+#             */
-/*   Updated: 2025/02/12 20:11:17 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/04 20:23:45 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ int	validcara(char **tab)
 	return (1);
 }
 
-int	validrectangle(char **tab)
+int	validrectangle(char **tab, t_game *game)
 {
 	int	i;
 	int	j;
-	int	len;
 
 	i = 0;
 	j = 0;
-	len = slong_strlen(tab[0]);
+	game->checks->mapwidth = slong_strlen(tab[0]);
+	game->checks->mapheight = slong_mapheight(tab);
 	if (validcara(tab) == 0)
 	{
 		printf("La carte contient des caractères invalides.\n");
@@ -52,10 +52,23 @@ int	validrectangle(char **tab)
 	while (tab[i] != NULL)
 	{
 		j = slong_strlen(tab[i]);
-		if (j != len)
+		if (j != game->checks->mapwidth)
 			return (0);
 		i++;
 	}
+	return (1);
+}
+
+int	validname(char *map_path)
+{
+	int	i;
+
+	i = slong_strlen(map_path);
+	if (i < 5)
+		return (0);
+	if (map_path[i - 1] != 'r' || map_path[i - 2] != 'e'
+		|| map_path[i - 3] != 'b' || map_path[i - 4] != '.')
+		return (0);
 	return (1);
 }
 

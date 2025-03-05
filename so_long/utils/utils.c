@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrighi <jrighi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:05:07 by jrighi            #+#    #+#             */
-/*   Updated: 2025/02/14 18:45:30 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/05 18:20:13 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	linewallchek(int i, char **tab)
 	int	j;
 
 	j = 0;
-	while (tab[i][j] != '\0')
+	while (tab[i][j] != '\n')
 	{
 		if (tab[i][j] != '1')
 			return (0);
@@ -66,22 +66,23 @@ char	**mapcopy(char **map)
 	return (clonemap);
 }
 
-void	gameinit(t_game *game)
+void	freeallgame(t_game *game)
 {
-	//game = malloc(sizeof(t_game));
-	game->checks.carapos = 0;
-	game->checks.kolektibl = 0;
-	game->checks.exitexist = 0;
-	game->checks.wallstatus = 0;
-	game->checks.koclone = 0;
-	game->checks.exitclone = 0;
-	game->map.map = NULL;
-	game->map.clonemap = NULL;
-	game->map.xspawn = 0;
-	game->map.yspawn = 0;
-	game->map.x = 0;
-	game->map.y = 0;
+	int	i;
+
+	i = 0;
+	while (game->map->map[i] != NULL)
+	{
+		free(game->map->map[i]);
+		i++;
+	}
+	free(game->map->map);
+	free(game->map->clonemap);
+	free(game->map);
+	free(game->checks);
+	free(game);
 }
+
 
 /*int main(void)
 {
