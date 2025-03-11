@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrighi <jrighi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:50:46 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/04 20:23:45 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/07 15:16:44 by jawed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../bibi/so_long.h"
+
+int	linewallchek(int i, char **tab)
+{
+	int	j;
+
+	j = 0;
+	while (tab[i][j] != '\n')
+	{
+		if (tab[i][j] != '1')
+			return (0);
+		j++;
+	}
+	return (1);
+}
 
 int	validcara(char **tab)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlxutils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
+/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:08:33 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/05 18:33:20 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:39:23 by jawed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,34 @@ int	key_hook(int touche, t_game *game)
 	return (0);
 }
 
-void	mlxinit(t_minilib *minilib)
+void	drawmap(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < game->checks->mapheight)
+	{
+		x = 0;
+		while (x < game->checks->mapwidth)
+		{
+			if (game->map->map[y][x] == '1')
+				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->wall, x * 64, y * 64);
+			if (game->map->map[y][x] == '0')
+				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->tile, x * 64, y * 64);
+			if (game->map->map[y][x] == 'C')
+				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->kolek, x * 64, y * 64);
+			if (game->map->map[y][x] == 'E')
+				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->exit, x * 64, y * 64);
+			if (game->map->map[y][x] == 'P')
+				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->fish1, x * 64, y * 64);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	mlxinit(t_minilib *minilib, t_game *game)
 {
 	int	height;
 
@@ -63,4 +90,5 @@ void	mlxinit(t_minilib *minilib)
 	f2i(minilib->mlx, &minilib->wall, "img/murs.xpm", &height);
 	f2i(minilib->mlx, &minilib->fish1, "img/fish1.xpm", &height);
 	f2i(minilib->mlx, &minilib->fish2, "img/kolek.xpm", &height);
+	drawmap(game);
 }

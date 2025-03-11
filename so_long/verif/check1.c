@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrighi <jrighi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:29:47 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/04 20:41:57 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/07 15:45:17 by jawed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	spawnchek(t_game *game)
 				game->checks->carapos++;
 				game->map->yspawn = i;
 				game->map->xspawn = j;
+				game->player->x = j;
+				game->player->y = i;
 				printf("xspawn: %d\n", game->map->xspawn);
 				printf("yspawn: %d\n", game->map->yspawn);
 			}
@@ -131,14 +133,16 @@ int	wallchek(t_game *game)
 }
 
 
-int	allchecks(t_game *game)
+int	allchecks(t_game *game, char *map_path)
 {
 	if (kolektichek(game) && exichek(game)
 		&& wallchek(game) && spawnchek(game)
-		&& validrectangle(game->map->map, game))
+		&& validrectangle(game->map->map, game)
+		&& validname(map_path))
 	{
 		return (1);
-	}
+	}	
+	brexit(game);
 	return (0);
 }
 

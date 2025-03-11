@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
+/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:02:41 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/05 18:34:00 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:56:46 by jawed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,18 @@ typedef struct s_minilib
 	int		*height;
 }		t_minilib;
 
+typedef struct s_player
+{
+	int		x;
+	int		y;
+}			t_player;
+
 typedef struct s_game
 {
 	struct s_map		*map;
 	struct s_char		*checks;
 	struct s_minilib	*minilib;
+	struct s_player		*player;
 }			t_game;
 
 int		linewallchek(int i, char **tab);
@@ -91,7 +98,7 @@ int		validname(char *map_path);
 void	init_map(t_map *map);
 void	init_checks(t_char *checks);
 void	freeallgame(t_game *game);
-void	mlxinit(t_minilib *minilib);
+void	mlxinit(t_minilib *minilib, t_game *game);
 void	destroyimg(t_minilib *minilib);
 void	f2i(void *mlx, void **img, char *path, int *x);
 int		key_hook(int touche, t_game *game);
@@ -99,7 +106,7 @@ void	upmouvement(t_game *game);
 void	downmouvement(t_game *game);
 void	leftmouvement(t_game *game);
 void	rightmouvement(t_game *game);
-
+void	drawmap(t_game *game);
 
 
 

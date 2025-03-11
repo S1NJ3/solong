@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
+/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:03:39 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/05 18:18:43 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/07 15:22:03 by jawed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,12 @@
 int main(int ac, char **av)
 {
 	t_game *game;
-
-	game = malloc(sizeof(t_game)); // Allouez de la mémoire pour gamey
-    gameinit(game);
-    if (ac != 2)
-    {
-        write(1,"Erreur: nombre d'arguments invalide.\n", 38);
-        freeallgame(game);
-        return (0);
-    }
-	if	(validname(av[1]) == 0)
+	if (ac == 2)
+	{
+		game = malloc(sizeof(t_game)); // Allouez de la mémoire pour gamey
+    	gameinit(game);
+		game->minilib = malloc(sizeof(t_minilib));
+    (validname(av[1]) == 0)
 		write(1, "Le nom du fichier est invalide.\n", 32);
 	else
 		game->map->map = fdtotab(game->map->map, av[1]);
@@ -39,9 +35,16 @@ int main(int ac, char **av)
 		write(1, "La map n'a pas de chemin valide.\n", 33);
 	else
 		write(1, "tout est bon\n", 13);
-	mlx_init(game->minilib);
+
+	mlxinit(game->minilib, game);
 	mlx_key_hook(game->minilib->win, key_hook, game);
+	
+		// Boucle principale de MinilibX
 	mlx_loop(game->minilib->mlx);
+	
+		// Libération de la mémoire
+	free(game->minilib);
+	free(game);
 	return (0);
 }
 

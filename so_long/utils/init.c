@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
+/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 16:57:38 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/05 18:08:28 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:46:40 by jawed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ void	gameinit(t_game *game)
 {
 	t_map	*map;
 	t_char	*checks;
+	t_player	*player;
 
 	map = malloc(sizeof(t_map));
 	checks = malloc(sizeof(t_char));
+	player = malloc(sizeof(t_player));
 	if (map == NULL || checks == NULL)
 	{
 		printf("Erreur: allocation de mémoire échouée caca pipi.\n");
@@ -48,6 +50,7 @@ void	gameinit(t_game *game)
 	}
 	game->map = map;
 	game->checks = checks;
+	game->player = player;
 	init_map(game->map);
 	init_checks(game->checks);
 }

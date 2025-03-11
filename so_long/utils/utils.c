@@ -3,28 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
+/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:05:07 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/05 18:20:13 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/07 15:19:44 by jawed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../bibi/so_long.h"
 
-int	linewallchek(int i, char **tab)
-{
-	int	j;
 
-	j = 0;
-	while (tab[i][j] != '\n')
-	{
-		if (tab[i][j] != '1')
-			return (0);
-		j++;
-	}
-	return (1);
-}
 
 int	slong_strlen(char *str)
 {
@@ -80,9 +68,15 @@ void	freeallgame(t_game *game)
 	free(game->map->clonemap);
 	free(game->map);
 	free(game->checks);
+	free(game->player);
 	free(game);
 }
 
+void	brexit(t_game *game)
+{
+	freeallgame(game);
+	exit (0);
+}
 
 /*int main(void)
 {
