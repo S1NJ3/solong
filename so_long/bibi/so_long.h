@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:02:41 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/06 17:56:46 by jawed            ###   ########.fr       */
+/*   Updated: 2025/03/12 12:19:24 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_minilib
 	void	*exit;
 	void	*wall;
 	int		*height;
+	int		unfree;
 }		t_minilib;
 
 typedef struct s_player
@@ -97,7 +98,6 @@ char	**fdtotab(char **tab, char *map_path);
 int		validname(char *map_path);
 void	init_map(t_map *map);
 void	init_checks(t_char *checks);
-void	freeallgame(t_game *game);
 void	mlxinit(t_minilib *minilib, t_game *game);
 void	destroyimg(t_minilib *minilib);
 void	f2i(void *mlx, void **img, char *path, int *x);
@@ -106,8 +106,13 @@ void	upmouvement(t_game *game);
 void	downmouvement(t_game *game);
 void	leftmouvement(t_game *game);
 void	rightmouvement(t_game *game);
-void	drawmap(t_game *game);
-
-
+void	drawmap(t_game *game, t_minilib *minilib);
+void	brexit(t_game *game);
+void	freeallgame(t_game *game);
+void	freemap(t_game *game);
+void	freeminilib(t_game *game);
+void	coordassign(t_game *game, int i, int j);
+void	free_tab(char **tab, int j);
+int		errormsg(char *str);
 
 #endif

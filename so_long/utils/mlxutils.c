@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlxutils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:08:33 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/06 17:39:23 by jawed            ###   ########.fr       */
+/*   Updated: 2025/03/12 12:08:17 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ void	destroyimg(t_minilib *minilib)
 int	key_hook(int touche, t_game *game)
 {
 	if (touche == 65307 || touche == 113)
-	{
-		destroyimg(game->minilib);
-		mlx_destroy_window(game->minilib->mlx, game->minilib->win);
-		freeallgame(game);
-		exit(0);
-	}
+		brexit(game);
 	if (touche == 119)
 		upmouvement(game);
 	if (touche == 115)
@@ -50,27 +45,29 @@ int	key_hook(int touche, t_game *game)
 	return (0);
 }
 
-void	drawmap(t_game *game)
+void	drawmap(t_game *g, t_minilib *m)
 {
 	int	x;
 	int	y;
+	int	p;
 
 	y = 0;
-	while (y < game->checks->mapheight)
+	p = 128;
+	while (y < g->checks->mapheight)
 	{
 		x = 0;
-		while (x < game->checks->mapwidth)
+		while (x < g->checks->mapwidth)
 		{
-			if (game->map->map[y][x] == '1')
-				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->wall, x * 64, y * 64);
-			if (game->map->map[y][x] == '0')
-				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->tile, x * 64, y * 64);
-			if (game->map->map[y][x] == 'C')
-				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->kolek, x * 64, y * 64);
-			if (game->map->map[y][x] == 'E')
-				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->exit, x * 64, y * 64);
-			if (game->map->map[y][x] == 'P')
-				mlx_put_image_to_window(game->minilib->mlx, game->minilib->win, game->minilib->fish1, x * 64, y * 64);
+			if (g->map->map[y][x] == '1')
+				mlx_put_image_to_window(m->mlx, m->win, m->wall, x * p, y * p);
+			if (g->map->map[y][x] == '0')
+				mlx_put_image_to_window(m->mlx, m->win, m->tile, x * p, y * p);
+			if (g->map->map[y][x] == 'C')
+				mlx_put_image_to_window(m->mlx, m->win, m->kolek, x * p, y * p);
+			if (g->map->map[y][x] == 'E')
+				mlx_put_image_to_window(m->mlx, m->win, m->exit, x * p, y * p);
+			if (g->map->map[y][x] == 'P')
+				mlx_put_image_to_window(m->mlx, m->win, m->fish1, x * p, y * p);
 			x++;
 		}
 		y++;
@@ -80,15 +77,21 @@ void	drawmap(t_game *game)
 void	mlxinit(t_minilib *minilib, t_game *game)
 {
 	int	height;
+	int	x;
+	int	y;
 
 	minilib->mlx = mlx_init();
-	minilib->win = mlx_new_window(minilib->mlx, 800, 600, "so_long");
-	height = 64;
+	minilib->unfree = 1;
+	x = game->checks->mapwidth - 1;
+	y = game->checks->mapheight - 1;
+	minilib->win = mlx_new_window(minilib->mlx, ((x) * 128),
+			((y + 1) * 128), "so_long");
+	height = 128;
 	f2i(minilib->mlx, &minilib->tile, "img/sand.xpm", &height);
 	f2i(minilib->mlx, &minilib->kolek, "img/kolek.xpm", &height);
 	f2i(minilib->mlx, &minilib->exit, "img/sortie.xpm", &height);
 	f2i(minilib->mlx, &minilib->wall, "img/murs.xpm", &height);
 	f2i(minilib->mlx, &minilib->fish1, "img/fish1.xpm", &height);
 	f2i(minilib->mlx, &minilib->fish2, "img/kolek.xpm", &height);
-	drawmap(game);
+	drawmap(game, game->minilib);
 }

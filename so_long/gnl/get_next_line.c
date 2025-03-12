@@ -6,11 +6,12 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:34:33 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/05 17:24:32 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/12 11:29:15 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "../bibi/so_long.h"
 
 char	*extract_line(char *stash)
 {
@@ -52,13 +53,13 @@ char	*read_to_stash(int fd, char *stash)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash = NULL;
+	static char	*stash;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 999)
 		return (NULL);
 	stash = read_to_stash(fd, stash);
-	if (!stash || !*stash)
+	if (!stash)
 	{
 		free (stash);
 		stash = NULL;

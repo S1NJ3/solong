@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:50:46 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/07 15:16:44 by jawed            ###   ########.fr       */
+/*   Updated: 2025/03/12 11:55:55 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,12 @@ int	validrectangle(char **tab, t_game *game)
 	game->checks->mapwidth = slong_strlen(tab[0]);
 	game->checks->mapheight = slong_mapheight(tab);
 	if (validcara(tab) == 0)
-	{
-		printf("La carte contient des caractères invalides.\n");
-		return (0);
-	}
+		return (errormsg("Error: caractères invalides.\n"));
 	while (tab[i] != NULL)
 	{
 		j = slong_strlen(tab[i]);
 		if (j != game->checks->mapwidth)
-			return (0);
+			return (errormsg("Error: forme de map invalide.\n"));
 		i++;
 	}
 	return (1);
@@ -79,10 +76,10 @@ int	validname(char *map_path)
 
 	i = slong_strlen(map_path);
 	if (i < 5)
-		return (0);
+		return (errormsg("Error: nom de fichier invalide.\n"));
 	if (map_path[i - 1] != 'r' || map_path[i - 2] != 'e'
 		|| map_path[i - 3] != 'b' || map_path[i - 4] != '.')
-		return (0);
+		return (errormsg("Error: nom de fichier invalide.\n"));
 	return (1);
 }
 

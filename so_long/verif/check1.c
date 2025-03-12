@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jawed <jawed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:29:47 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/07 15:45:17 by jawed            ###   ########.fr       */
+/*   Updated: 2025/03/12 12:23:00 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	kolektichek(t_game *game)
 		i++;
 	}
 	if (game->checks->kolektibl < 1)
-		return (0);
+		return (errormsg("Error: pas de collectibles.\n"));
 	else if (game->checks->kolektibl >= 1)
 	{
 		game->checks->koclone = game->checks->kolektibl;
@@ -55,19 +55,14 @@ int	spawnchek(t_game *game)
 			if (game->map->map[i][j] == 'P')
 			{
 				game->checks->carapos++;
-				game->map->yspawn = i;
-				game->map->xspawn = j;
-				game->player->x = j;
-				game->player->y = i;
-				printf("xspawn: %d\n", game->map->xspawn);
-				printf("yspawn: %d\n", game->map->yspawn);
+				coordassign(game, i, j);
 			}
 			j++;
 		}
 		i++;
 	}
 	if (game->checks->carapos != 1)
-		return (0);
+		return (errormsg("Error: nombre de spawn invalide.\n"));
 	else if (game->checks->carapos == 1)
 		return (1);
 	return (0);
@@ -96,11 +91,9 @@ int	exichek(t_game *game)
 		i++;
 	}
 	game->checks->exitclone = game->checks->exitexist;
-	if (game->checks->exitexist != 1)
-		return (0);
-	else if (game->checks->exitexist == 1)
+	if (game->checks->exitexist == 1)
 		return (1);
-	return (0);
+	return (errormsg("Error: nombre de sortie invalide.\n"));
 }
 
 int	wallchek(t_game *game)
@@ -118,31 +111,31 @@ int	wallchek(t_game *game)
 	while (game->map->map[i][j] != '\0')
 		j++;
 	if (linewallchek(0, game->map->map) == 0)
-		return (0);
+		return (errormsg("Error: murs invalides.\n"));
 	i++;
 	while (i < k - 1)
 	{
 		if (game->map->map[i][0] != '1' || game->map->map[i][j - 2] != '1')
-			return (0);
+			return (errormsg("Error: murs invalides.\n"));
 		i++;
 	}
 	if (linewallchek(i, game->map->map) == 0)
-		return (0);
+		return (errormsg("Error: murs invalides.\n"));
 	game->checks->wallstatus = 1;
 	return (1);
 }
 
-
-int	allchecks(t_game *game, char *map_path)
+int	allchecks(t_game *game)
 {
-	if (kolektichek(game) && exichek(game)
+	if (validrectangle(game->map->map, game)
+		&& kolektichek(game) && exichek(game)
 		&& wallchek(game) && spawnchek(game)
-		&& validrectangle(game->map->map, game)
-		&& validname(map_path))
+		&& validpath(game))
 	{
 		return (1);
-	}	
-	brexit(game);
+	}
+	else
+		brexit(game);
 	return (0);
 }
 

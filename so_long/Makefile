@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jawed <jawed@student.42.fr>                +#+  +:+       +#+         #
+#    By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/17 16:55:23 by jrighi            #+#    #+#              #
-#    Updated: 2025/03/06 05:19:53 by jawed            ###   ########.fr        #
+#    Updated: 2025/03/12 10:23:21 by jrighi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRCS =  so_long.c \
 	gnl/get_next_line_utils.c \
 	utils/init.c \
 	utils/mlxutils.c \
-	utils/moves.c 
+	utils/moves.c \
+	utils/free.c 
 
 OBJS = $(SRCS:.c=.o)
 
