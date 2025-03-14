@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:29:47 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/14 17:47:00 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/14 18:07:21 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int	wallchek(t_game *game)
 	j = 0;
 	k = 0;
 	game->checks->wallstatus = 0;
-	k = slong_mapheight(game->map->map);
 	printf("k = %d\n", k);
 	while (game->map->map[i][j] != '\0')
 		j++;
@@ -119,7 +118,6 @@ int	wallchek(t_game *game)
 			return (errormsg("Error: murs invalides.\n"));
 		i++;
 	}
-	printf("i = %d\n", i);
 	if (linewallchek(i, game->map->map) == 0)
 		return (errormsg("Error: murs invalides.\n"));
 	game->checks->wallstatus = 1;
@@ -139,4 +137,3 @@ int	allchecks(t_game *game)
 		brexit(game);
 	return (0);
 }
-

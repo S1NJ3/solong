@@ -6,12 +6,11 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 04:35:16 by jawed             #+#    #+#             */
-/*   Updated: 2025/03/14 17:15:39 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/14 18:09:00 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../bibi/so_long.h"
-
 
 void	ft_putstr(char *str)
 {
@@ -39,7 +38,7 @@ int	upmouvement(t_game *game)
 		else if (game->checks->kolektibl > 0)
 		{
 			spky(game, -1);
-			return  (0);
+			return (0);
 		}
 	}
 	if (game->map->map[game->player->y - 1][game->player->x] == 'C')
