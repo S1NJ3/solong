@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:02:41 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/12 12:19:24 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:08:22 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_player
 {
 	int		x;
 	int		y;
+	int		count;
 }			t_player;
 
 typedef struct s_game
@@ -93,7 +94,9 @@ int		validpath(t_game *game);
 int		flood_fill(t_game *game, int x, int y);
 void	floodcount(t_game *game, int x, int y);
 int		flooderrorchek(t_game *game, int x, int y);
-int		fdlen(char *map_path);
+void	display_move(t_game *game);
+void	freeclonemap(t_game *game);
+void	freechecks(t_game *game);
 char	**fdtotab(char **tab, char *map_path);
 int		validname(char *map_path);
 void	init_map(t_map *map);
@@ -102,10 +105,10 @@ void	mlxinit(t_minilib *minilib, t_game *game);
 void	destroyimg(t_minilib *minilib);
 void	f2i(void *mlx, void **img, char *path, int *x);
 int		key_hook(int touche, t_game *game);
-void	upmouvement(t_game *game);
-void	downmouvement(t_game *game);
-void	leftmouvement(t_game *game);
-void	rightmouvement(t_game *game);
+int		upmouvement(t_game *game);
+int		downmouvement(t_game *game);
+int		leftmouvement(t_game *game);
+int		rightmouvement(t_game *game);
 void	drawmap(t_game *game, t_minilib *minilib);
 void	brexit(t_game *game);
 void	freeallgame(t_game *game);
@@ -114,5 +117,12 @@ void	freeminilib(t_game *game);
 void	coordassign(t_game *game, int i, int j);
 void	free_tab(char **tab, int j);
 int		errormsg(char *str);
+int		mlxdestroyall(t_game *game);
+void	spk(t_game *g);
+void	ft_putstr(char *str);
+int		spky(t_game *g, int s);
+int		spky2(t_game *g, int s);
+int		spkx(t_game *g, int s);
+int		spkx2(t_game *g, int s);
 
 #endif

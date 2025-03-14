@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:08:33 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/12 12:08:17 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:33:57 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	key_hook(int touche, t_game *game)
 {
 	if (touche == 65307 || touche == 113)
 		brexit(game);
-	if (touche == 119)
+	if (touche == 119)	
 		upmouvement(game);
 	if (touche == 115)
 		downmouvement(game);
@@ -80,18 +80,23 @@ void	mlxinit(t_minilib *minilib, t_game *game)
 	int	x;
 	int	y;
 
+	x = game->checks->mapwidth - 1;
+	y = game->checks->mapheight;
+	if (x > 127 || y > 127)
+	{
+		printf("Error: map trop grande.\n");
+		brexit(game);
+	}
 	minilib->mlx = mlx_init();
 	minilib->unfree = 1;
-	x = game->checks->mapwidth - 1;
-	y = game->checks->mapheight - 1;
 	minilib->win = mlx_new_window(minilib->mlx, ((x) * 128),
-			((y + 1) * 128), "so_long");
+			((y) * 128), "so_long");
 	height = 128;
 	f2i(minilib->mlx, &minilib->tile, "img/sand.xpm", &height);
 	f2i(minilib->mlx, &minilib->kolek, "img/kolek.xpm", &height);
 	f2i(minilib->mlx, &minilib->exit, "img/sortie.xpm", &height);
 	f2i(minilib->mlx, &minilib->wall, "img/murs.xpm", &height);
 	f2i(minilib->mlx, &minilib->fish1, "img/fish1.xpm", &height);
-	f2i(minilib->mlx, &minilib->fish2, "img/kolek.xpm", &height);
+	f2i(minilib->mlx, &minilib->fish2, "img/fish2.xpm", &height);
 	drawmap(game, game->minilib);
 }

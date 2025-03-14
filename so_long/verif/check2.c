@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 18:50:46 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/12 11:55:55 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:18:14 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,28 +82,3 @@ int	validname(char *map_path)
 		return (errormsg("Error: nom de fichier invalide.\n"));
 	return (1);
 }
-
-/*int main(void)
-{
-    // Exemple de carte (map) pour tester
-    char *tab[] = {
-        "111111",
-        "1C0E01",
-        "100P01",
-        "1C0001",
-        "111111",
-        NULL
-    };
-
-    // Appel de la fonction validrectangle
-    int result = validrectangle(tab);
-
-    // Affichage du résultat
-    if (result)
-        printf("La carte est un rectangle valide.\n");
-    else
-        printf("La carte n'est pas un rectangle valide.\n");
-
-    return 0;
-}
-*/

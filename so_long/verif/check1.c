@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:29:47 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/12 12:23:00 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:47:00 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ int	wallchek(t_game *game)
 	j = 0;
 	k = 0;
 	game->checks->wallstatus = 0;
-	while (game->map->map[k] != NULL)
-		k++;
+	k = slong_mapheight(game->map->map);
+	printf("k = %d\n", k);
 	while (game->map->map[i][j] != '\0')
 		j++;
 	if (linewallchek(0, game->map->map) == 0)
@@ -119,6 +119,7 @@ int	wallchek(t_game *game)
 			return (errormsg("Error: murs invalides.\n"));
 		i++;
 	}
+	printf("i = %d\n", i);
 	if (linewallchek(i, game->map->map) == 0)
 		return (errormsg("Error: murs invalides.\n"));
 	game->checks->wallstatus = 1;
@@ -139,100 +140,3 @@ int	allchecks(t_game *game)
 	return (0);
 }
 
-/*int allchecks(struct s_char checks, char **tab)
-{
-    int result = 1;
-
-    if (!kolektichek(checks.kolektibl, tab))
-    {
-        printf("Check des collectibles échoué.\n");
-        result = 0;
-    }
-    else
-    {
-        printf("Check des collectibles réussi.\n");
-    }
-
-    if (!exichek(checks.exitexist, tab))
-    {
-        printf("Check des exits échoué.\n");
-        result = 0;
-    }
-    else
-    {
-        printf("Check des exits réussi.\n");
-    }
-
-    if (!wallchek(checks.wallstatus, tab))
-    {
-        printf("Check des murs échoué.\n");
-        result = 0;
-    }
-    else
-    {
-        printf("Check des murs réussi.\n");
-    }
-
-    if (!spawnchek(checks.carapos, tab))
-    {
-        printf("Check des spawns échoué.\n");
-        result = 0;
-    }
-    else
-    {
-        printf("Check des spawns réussi.\n");
-    }
-	if (!validrectangle(tab))
-	{
-		printf("Check des rectangles échoué.\n");
-		result = 0;
-	}
-	else
-	{
-		printf("Check des rectangles réussi.\n");
-	}
-
-    return result;
-}*/
-
-/*int	main(void)
-{
-    // Exemple de tableau de carte (map) pour tester
-    char *tab[] = {
-        "111111",
-		"100001",
-		"10C1E1",
-		"100101",
-		"111111",
-        NULL
-    };
-
-    // Initialisation de la structure t_game
-    t_game game;
-    game.map = malloc(sizeof(t_map));
-    game.checks = malloc(sizeof(t_char));
-    if (game.map == NULL || game.checks == NULL)
-    {
-        printf("Erreur: allocation de mémoire échouée.\n");
-        return (1);
-    }
-
-    game.map->map = tab;
-    game.map->xspawn = 0; // Initialisation de xspawn
-    game.map->yspawn = 0; // Initialisation de yspawn
-
-    // Appel de la fonction wallchek
-    int result = wallchek(&game);
-    printf("wallstatus: %d\n", game.checks->wallstatus);
-
-    // Affichage du résultat global
-    if (result)
-        printf("Les murs sont corrects.\n");
-    else
-        printf("Les murs ne sont pas corrects.\n");
-
-    free(game.map);
-    free(game.checks);
-
-    return 0;
-}*/

@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 16:57:38 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/12 12:14:00 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/13 17:00:02 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,23 @@ void	gameinit(t_game *game)
 	game->checks = checks;
 	game->player = player;
 	game->minilib = minilib;
+	game->minilib->unfree = 0;
 	init_map(game->map);
 	init_checks(game->checks);
 	player->x = 0;
 	player->y = 0;
+	player->count = 0;
+}
+
+int	mlxdestroyall(t_game *game)
+{
+	freeallgame(game);
+	exit (EXIT_SUCCESS);
+}
+
+
+void	brexit(t_game *game)
+{
+	freeallgame(game);
+	exit (0);
 }

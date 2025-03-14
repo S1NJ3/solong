@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 19:34:33 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/12 11:29:15 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/12 21:34:21 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
+	if (fd == -42)
+	{
+		free(stash);
+		stash = NULL;
+	}
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 999)
 		return (NULL);
 	stash = read_to_stash(fd, stash);

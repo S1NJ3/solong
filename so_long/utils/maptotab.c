@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 18:28:57 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/12 12:41:27 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/12 21:33:51 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,18 @@ char	**fdtotab(char **tab, char *map_path)
 		return (NULL);
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		return (free(tab), NULL);
+		exit (errormsg("Error: ouverture de fichier échouée.\n"));
 	j = 0;
 	while (j < i)
 	{
 		tab[j] = get_next_line(fd);
 		if (tab[j] == NULL)
+		{
 			return (free_tab(tab, j), close(fd), NULL);
+		}
 		j++;
 	}
-	tab[j] = NULL;
+	tab[j] = get_next_line(-42);
 	close(fd);
 	return (tab);
 }

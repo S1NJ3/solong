@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:03:39 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/12 12:43:52 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/14 17:29:52 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	main(int ac, char **av)
 			if (allchecks(game))
 			{
 				mlxinit(game->minilib, game);
-				mlx_key_hook(game->minilib->win, key_hook, game);
+				mlx_key_hook(game->minilib->win, key_hook, game);	
+				mlx_hook(game->minilib->win, 17, 1L<<0, mlxdestroyall, game);
 				mlx_loop(game->minilib->mlx);
 				brexit(game);
-				return (0);
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 #    By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/17 16:55:23 by jrighi            #+#    #+#              #
-#    Updated: 2025/03/12 10:23:21 by jrighi           ###   ########.fr        #
+#    Updated: 2025/03/13 17:06:37 by jrighi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS =  so_long.c \
 	utils/init.c \
 	utils/mlxutils.c \
 	utils/moves.c \
-	utils/free.c 
+	utils/free.c  \
+	utils/display.c 
 
 OBJS = $(SRCS:.c=.o)
 
