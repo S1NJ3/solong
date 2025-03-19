@@ -6,7 +6,7 @@
 /*   By: jrighi <jrighi@student.42Lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 23:29:47 by jrighi            #+#    #+#             */
-/*   Updated: 2025/03/14 18:07:21 by jrighi           ###   ########.fr       */
+/*   Updated: 2025/03/19 13:48:45 by jrighi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,7 @@ int	wallchek(t_game *game)
 
 	i = 0;
 	j = 0;
-	k = 0;
-	game->checks->wallstatus = 0;
-	printf("k = %d\n", k);
+	k = slong_mapheight(game->map->map);
 	while (game->map->map[i][j] != '\0')
 		j++;
 	if (linewallchek(0, game->map->map) == 0)
